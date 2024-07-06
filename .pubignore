@@ -1,4 +1,6 @@
 doc/example.png
 
+build/
+example/test/**/golden/
 example/test/**/preview/
 
