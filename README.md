@@ -1,22 +1,11 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+## adaptive_golden_test
 
 A Flutter package to generate adaptive golden files during widget tests.
 
-> This package is in beta. Use it with caution and [file any potential issues here](https://github.com/bamlab/adaptive_golden_test/issues).
+> This package is in beta. Use it with caution and [file any potential issues here](https://github.com/mjablecnik/adaptive_golden_test/issues).
 
 <p>
-  <img  alt="Example" src="https://raw.githubusercontent.com/bamlab/adaptive_golden_test/main/doc/example.png"/>
+  <img  alt="Example" src="https://raw.githubusercontent.com/mjablecnik/adaptive_golden_test/main/doc/example.png"/>
 </p>
 
 ## Features
@@ -214,15 +203,30 @@ rename_files_in_preview()
 
 You can add the script in a `.sh` file and run it from your project root directory.
 
-## Additional information
 
-This package is still in early stage of development.
-After using it in multiple projects, we wanted to open-source it.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Feedbacks, issues, contributions and suggestions are more than welcomed! 😁
 
-## 👉 About Bam
+## Special thanks
 
-We are a 100 people company developing and designing multiplatform applications with [React Native](https://www.bam.tech/expertise/react-native) and [Flutter](https://www.bam.tech/expertise/flutter) using the Lean & Agile methodology. To get more information on the solutions that would suit your needs, feel free to get in touch by [email](mailto://contact@bam.tech) or through or [contact form](https://www.bam.tech/contact)!
+I want to thank previous developers for their work:
+- [BAM](https://github.com/bamlab): 100 people company developing and designing multiplatform applications with [React Native](https://www.bam.tech/expertise/react-native) and [Flutter](https://www.bam.tech/expertise/flutter) using the Lean & Agile methodology.
 
-We will always answer you with pleasure 😁
+
+## Maintainer
+
+👤 **Martin Jablečník**
+
+* Website: [martin-jablecnik.cz](https://www.martin-jablecnik.cz)
+* Github: [@mjablecnik](https://github.com/mjablecnik)
+* Blog: [dev.to/mjablecnik](https://dev.to/mjablecnik)
+
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+<a href="https://www.patreon.com/mjablecnik">
+  <img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
+</a>
