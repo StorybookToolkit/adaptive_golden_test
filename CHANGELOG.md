@@ -1,3 +1,7 @@
+## 0.5.1
+
+* feat: add pathBuilder
+
 ## 0.5.0
 
 **Breaking changes**
