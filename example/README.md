@@ -1,4 +1,4 @@
-# adaptive_test examples
+# adaptive_golden_test examples
 
 ```
 simple_app/

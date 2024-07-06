@@ -1,5 +1,5 @@
 name: simple_app_example
-description: A simple Flutter app to illustrate the package adaptive_test.
+description: A simple Flutter app to illustrate the package adaptive_golden_test.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -16,7 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  adaptive_test:
+  adaptive_golden_test:
     path: ../../
 
   flutter_lints: ^2.0.0

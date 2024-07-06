@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter/material.dart';
-import 'package:adaptive_test/src/adaptive/window_size.dart';
+import 'package:adaptive_golden_test/src/adaptive/window_size.dart';
 
 import 'layers/hardware_layer.dart';
 import 'layers/keyboard_layer.dart';

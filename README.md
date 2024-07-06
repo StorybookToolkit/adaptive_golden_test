@@ -13,10 +13,10 @@ and the Flutter guide for
 
 A Flutter package to generate adaptive golden files during widget tests.
 
-> This package is in beta. Use it with caution and [file any potential issues here](https://github.com/bamlab/adaptive_test/issues).
+> This package is in beta. Use it with caution and [file any potential issues here](https://github.com/bamlab/adaptive_golden_test/issues).
 
 <p>
-  <img  alt="Example" src="https://raw.githubusercontent.com/bamlab/adaptive_test/main/doc/example.png"/>
+  <img  alt="Example" src="https://raw.githubusercontent.com/bamlab/adaptive_golden_test/main/doc/example.png"/>
 </p>
 
 ## Features
@@ -32,7 +32,7 @@ Use this package in your test to:
 
 ## Getting started
 
-Add `adaptive_test` to your dev dependencies
+Add `adaptive_golden_test` to your dev dependencies
 
 At the root of your `test` folder create a `flutter_test_config.dart` file with a `testExecutable` function.
 

@@ -1,5 +1,5 @@
 name: multi_packages_example_app
-description: A multi packages Flutter app to illustrate the package adaptive_test. This "multi_packages_app" package holds the app related code
+description: A multi packages Flutter app to illustrate the package adaptive_golden_test. This "multi_packages_app" package holds the app related code
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -18,7 +18,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  adaptive_test:
+  adaptive_golden_test:
     path: ../../../
 
   flutter_lints: ^2.0.0

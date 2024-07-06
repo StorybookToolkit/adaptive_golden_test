@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:adaptive_test/src/adaptive/window_configuration.dart';
+import 'package:adaptive_golden_test/src/adaptive/window_configuration.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../window_size.dart';
@@ -99,7 +99,7 @@ class _KeyboardDisplayerState extends State<KeyboardDisplayer> {
         'assets/keyboards/${windowConfig.name}.png',
         height: windowConfig.keyboardSize?.height,
         width: windowConfig.keyboardSize?.width,
-        package: 'adaptive_test',
+        package: 'adaptive_golden_test',
         fit: BoxFit.cover,
       ),
     );

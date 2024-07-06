@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
-import 'package:adaptive_test/src/adaptive/window_size.dart';
+import 'package:adaptive_golden_test/src/adaptive/window_size.dart';
 
 enum _Device {
   iPhone_8,
