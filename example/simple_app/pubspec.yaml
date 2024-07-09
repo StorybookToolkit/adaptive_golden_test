@@ -16,9 +16,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  adaptive_golden_test:
-    path: ../../
-
+  adaptive_golden_test: any
   flutter_lints: ^2.0.0
 
 flutter:
