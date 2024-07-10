@@ -67,20 +67,21 @@ extension Adaptive on WidgetTester {
   Future<void> expectGolden<T>(
     WindowConfigData windowConfig, {
     String? suffix,
-    Key?
-        byKey, // Sometimes we want to find the widget by its unique key in the case they are multiple of the same type.
+    // Sometimes we want to find the widget by its unique key in the case they are multiple of the same type.
+    Key? byKey,
     bool waitForImages = true,
-    String Function()? pathBuilder,
+    String rootPath = 'preview', // Path where we will generate our golden tests
+    String Function(String)? pathBuilder,
   }) async {
     final enforcedTestPlatform = AdaptiveTestConfiguration.instance.enforcedTestPlatform;
     if (enforcedTestPlatform != null && !enforcedTestPlatform.isRuntimePlatform) {
       throw ('Runtime platform ${Platform.operatingSystem} is not ${enforcedTestPlatform.name}');
     }
 
-    pathBuilder ??= () {
+    pathBuilder ??= (String rootPath) {
       final name = ReCase('$T');
       final localSuffix = suffix != null ? "_${ReCase(suffix).snakeCase}" : '';
-      return 'preview/${windowConfig.name}-${name.snakeCase}$localSuffix.png';
+      return '$rootPath/${windowConfig.name}-${name.snakeCase}$localSuffix.png';
     };
 
     if (waitForImages) {
@@ -89,7 +90,7 @@ extension Adaptive on WidgetTester {
     await expectLater(
       // Find by its type except if the widget's unique key was given.
       byKey != null ? find.byKey(byKey) : find.byType(AdaptiveWrapper),
-      matchesGoldenFile(pathBuilder.call()),
+      matchesGoldenFile(pathBuilder.call(rootPath)),
     );
   }
 }

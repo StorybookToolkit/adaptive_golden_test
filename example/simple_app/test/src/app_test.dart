@@ -39,7 +39,7 @@ void main() {
 
       await tester.expectGolden<App>(
         variant,
-        pathBuilder: () {
+        pathBuilder: (_) {
           return "golden/simple/without_keyboard/${variant.name}.png";
         },
       );
@@ -51,7 +51,7 @@ void main() {
 
       await tester.expectGolden<App>(
         variant,
-        pathBuilder: () {
+        pathBuilder: (_) {
           return "golden/simple/with_keyboard/${variant.name}.png";
         },
       );
