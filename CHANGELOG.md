@@ -1,6 +1,7 @@
 ## 0.5.2
 
 * fix: add path to fonts loader
+* fix: add rootPath param into expectGolden
  
 ## 0.5.1
 
