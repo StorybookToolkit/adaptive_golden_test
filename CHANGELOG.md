@@ -1,3 +1,7 @@
+## 0.5.2
+
+* fix: add path to fonts loader
+ 
 ## 0.5.1
 
 * feat: add pathBuilder

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:meta/meta.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart';
 import 'package:file/file.dart' as f;
 import 'package:file/local.dart' as l;
 import 'package:flutter/services.dart';
@@ -18,8 +18,7 @@ class Package {
 
   /// Creates a new [Package] instance.
   /// Either [name] or [relativePath] must be provided.
-  Package({this.name, this.relativePath})
-      : assert(name != null || relativePath != null);
+  Package({this.name, this.relativePath}) : assert(name != null || relativePath != null);
 }
 
 /// Load fonts to make sure they show up in golden tests.
@@ -31,12 +30,13 @@ class Package {
 ///
 /// *Note* for this function to work, your package needs to include all fonts
 /// it uses in a font dir at the root of the project.
-Future<void> loadFonts([String? package]) async {
+Future<void> loadFonts({String? package, String? path}) async {
   return package != null
       ? loadFontsFromPackage(
           package: Package(name: package, relativePath: './$package'),
+          path: path,
         )
-      : loadFontsFromPackage();
+      : loadFontsFromPackage(path: path);
 }
 
 /// Load fonts from a given package to make sure they show up in golden tests.
@@ -51,32 +51,28 @@ Future<void> loadFonts([String? package]) async {
 /// If no [package] is provided, it will look for a fonts dir at the root of the project.
 /// If a [package] is provided with a [Package.relativePath] it will look for a fonts dir with the package located at that path
 /// If a [package] is provided with a [Package.name] it will prefix the fonts dir with `packages/[package.name]`
-Future<void> loadFontsFromPackage({Package? package}) async {
+Future<void> loadFontsFromPackage({Package? package, String? path}) async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  await _load(loadFontsFromFontsDir(package));
+  await _load(await loadFontsFromFontsDir(package: package, path: path ?? 'fonts'));
   await _loadMaterialIconFont();
 }
 
-/// Assumes a fonts dir in root of project
 @visibleForTesting
-Map<String, List<Future<ByteData>>> loadFontsFromFontsDir([Package? package]) {
+Future<Map<String, List<Future<ByteData>>>> loadFontsFromFontsDir({Package? package, required String path}) async {
   final fontFamilyToData = <String, List<Future<ByteData>>>{};
-  final currentDir = path.dirname(Platform.script.path);
-  final fontsDirectory = path.join(
+  final currentDir = dirname(Platform.script.path);
+  final fontsDirectory = join(
     currentDir,
-    package == null || package.relativePath == null
-        ? 'fonts'
-        : '${package.relativePath}/fonts',
+    package == null || package.relativePath == null ? path : '${package.relativePath}/$path',
   );
-  final prefix = package == null || package.name == null
-      ? ''
-      : 'packages/${package.name}/';
-  for (final file in Directory(fontsDirectory).listSync()) {
-    if (file is File) {
-      final fontFamily =
-          prefix + path.basenameWithoutExtension(file.path).split('-').first;
-      (fontFamilyToData[fontFamily] ??= [])
-          .add(file.readAsBytes().then((bytes) => ByteData.view(bytes.buffer)));
+  final prefix = package == null || package.name == null ? '' : 'packages/${package.name}/';
+
+  if (await Directory(fontsDirectory).exists()) {
+    for (final file in Directory(fontsDirectory).listSync()) {
+      if (file is File) {
+        final fontFamily = prefix + basenameWithoutExtension(file.path).split('-').first;
+        (fontFamilyToData[fontFamily] ??= []).add(file.readAsBytes().then((bytes) => ByteData.view(bytes.buffer)));
+      }
     }
   }
   return fontFamilyToData;
@@ -112,8 +108,7 @@ Future<void> _loadMaterialIconFont() async {
     ),
   );
 
-  final bytes =
-      Future<ByteData>.value(iconFont.readAsBytesSync().buffer.asByteData());
+  final bytes = Future<ByteData>.value(iconFont.readAsBytesSync().buffer.asByteData());
 
   await (FontLoader('MaterialIcons')..addFont(bytes)).load();
 }
