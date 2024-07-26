@@ -70,8 +70,12 @@ await loadFontsFromPackage(
 Define a set of device variant corresponding to your definition of done.
 ```dart
 final defaultDeviceConfigs = {
-  iPhone13,
-  pixel5,
+  Devices.ios.iPhoneSE,
+  Devices.ios.iPhone12,
+  Devices.ios.iPad,
+  Devices.linux.laptop,
+  Devices.android.pixel4,
+  Devices.android.samsungGalaxyS20,
 };
 ```
 Use the `AdaptiveTestConfiguration` singleton to set variants.
@@ -140,8 +144,10 @@ Wrap the widget you want to test with `AdaptiveWrapper`.
 ```dart
 await tester.pumpWidget(
   AdaptiveWrapper(
-    windowConfig: variant,
-    tester: tester,
+    device: variant,
+    orientation: Orientation.portrait,
+    isFrameVisible: true,
+    showVirtualKeyboard: false,
     child: const App(),
   ),
 );
@@ -161,8 +167,10 @@ void main() {
     (tester, variant) async {
       await tester.pumpWidget(
         AdaptiveWrapper(
-          windowConfig: variant,
-          tester: tester,
+          device: variant,
+          orientation: Orientation.portrait,
+          isFrameVisible: true,
+          showVirtualKeyboard: false,
           child: const App(),
         ),
       );

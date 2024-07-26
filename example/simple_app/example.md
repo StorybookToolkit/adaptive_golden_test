@@ -6,8 +6,10 @@ void main() {
     (tester, variant) async {
       await tester.pumpWidget(
         AdaptiveWrapper(
-          windowConfig: variant,
-          tester: tester,
+          device: Devices.ios.iPhoneSE,
+          orientation: Orientation.portrait,
+          isFrameVisible: true,
+          showVirtualKeyboard: false,
           child: const App(),
         ),
       );

@@ -1,3 +1,10 @@
+## Unreleased
+
+**Breaking changes**
+
+* feat: add device_frame_plus instead of our custom devices
+* feat: add device frame orientation
+  
 ## 0.5.2
 
 * fix: add path to fonts loader
