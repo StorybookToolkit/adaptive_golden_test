@@ -1,17 +1,16 @@
+import 'package:device_frame_plus/device_frame_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'window_size.dart';
 
 /// Dart extension to add configuration functions to a [WidgetTester] object,
 /// e.g. [configureWindow], [configureOpenedKeyboardWindow],
 /// [configureClosedKeyboardWindow].
 extension WidgetTesterWithConfigurableWindow on WidgetTester {
   /// Configure the tester window to represent the given device variant.
-  void configureWindow(WindowConfigData windowConfig) {
-    view.physicalSize = windowConfig.physicalSize;
-    view.devicePixelRatio = windowConfig.pixelDensity;
-    view.padding = windowConfig.padding;
-    view.viewPadding = windowConfig.padding;
+  void configureWindow(DeviceInfo windowConfig) {
+    view.physicalSize = windowConfig.frameSize;
+    view.devicePixelRatio = windowConfig.pixelRatio;
+    view.padding = FakeViewPadding.zero;
+    view.viewPadding = FakeViewPadding.zero;
 
     addTearDown(view.resetPadding);
     addTearDown(view.resetViewPadding);
@@ -19,16 +18,14 @@ extension WidgetTesterWithConfigurableWindow on WidgetTester {
     addTearDown(view.resetPhysicalSize);
     addTearDown(view.resetViewInsets);
   }
+}
 
-  /// Configure the tester window to represent an opened keyboard on the given device variant.
-  void configureOpenedKeyboardWindow(WindowConfigData windowConfig) {
-    view.viewInsets = windowConfig.viewInsets;
-    view.padding = windowConfig.padding.copyWith(bottom: 0);
-  }
 
-  /// Configure the tester window to represent a closed keyboard on the given device variant.
-  void configureClosedKeyboardWindow(WindowConfigData windowConfig) {
-    view.resetViewInsets();
-    view.padding = windowConfig.padding;
-  }
+class WindowVariant extends ValueVariant<DeviceInfo> {
+  WindowVariant(this.windowConfigs) : super(windowConfigs);
+
+  final Set<DeviceInfo> windowConfigs;
+
+  @override
+  String describeValue(DeviceInfo value) => value.name;
 }

@@ -5,11 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final defaultDeviceConfigs = {
-  iPhone8,
-  iPhone13,
-  iPadPro,
-  desktop,
-  pixel5,
+  Devices.ios.iPhoneSE,
+  Devices.ios.iPhone12,
+  Devices.ios.iPad,
+  Devices.linux.laptop,
+  Devices.android.pixel4,
+  Devices.android.samsungGalaxyS20,
 };
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {

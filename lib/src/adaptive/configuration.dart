@@ -1,6 +1,7 @@
+import 'package:device_frame_plus/device_frame_plus.dart';
 import 'package:flutter/material.dart';
 
-import 'adaptive/window_size.dart';
+import 'window_configuration.dart';
 
 /// Singleton class that configures global variables for the test.
 ///
@@ -52,7 +53,7 @@ See: https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html
   /// Set the devices variant on which you want your test to run.
   ///
   /// Eg [iPhone8], [iPhone13], [iPadPro], [desktop], [pixel5].
-  void setDeviceVariants(Set<WindowConfigData> deviceConfigs) {
+  void setDeviceVariants(Set<DeviceInfo> deviceConfigs) {
     _deviceVariant = WindowVariant(deviceConfigs);
   }
 }

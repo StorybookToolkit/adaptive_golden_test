@@ -9,8 +9,10 @@ void main() {
     (tester, variant) async {
       await tester.pumpWidget(
         AdaptiveWrapper(
-          windowConfig: variant,
-          tester: tester,
+          device: variant,
+          orientation: Orientation.portrait,
+          isFrameVisible: true,
+          showVirtualKeyboard: false,
           child: const App(),
         ),
       );
@@ -31,8 +33,10 @@ void main() {
     (tester, variant) async {
       await tester.pumpWidget(
         AdaptiveWrapper(
-          windowConfig: variant,
-          tester: tester,
+          device: variant,
+          orientation: Orientation.portrait,
+          isFrameVisible: true,
+          showVirtualKeyboard: false,
           child: const App(),
         ),
       );
@@ -40,19 +44,24 @@ void main() {
       await tester.expectGolden<App>(
         variant,
         pathBuilder: (_) {
-          return "golden/simple/without_keyboard/${variant.name}.png";
+          return "golden/simple/without_keyboard/${variant.name.replaceAll(' ', '_')}.png";
         },
       );
 
-      final textField = find.byType(TextField);
-
-      await tester.tap(textField);
-      await tester.pumpAndSettle();
+      await tester.pumpWidget(
+        AdaptiveWrapper(
+          device: variant,
+          orientation: Orientation.portrait,
+          isFrameVisible: true,
+          showVirtualKeyboard: true,
+          child: const App(),
+        ),
+      );
 
       await tester.expectGolden<App>(
         variant,
         pathBuilder: (_) {
-          return "golden/simple/with_keyboard/${variant.name}.png";
+          return "golden/simple/with_keyboard/${variant.name.replaceAll(' ', '_')}.png";
         },
       );
     },

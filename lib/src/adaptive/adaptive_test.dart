@@ -1,9 +1,6 @@
 import 'dart:io';
 
-import 'package:adaptive_golden_test/src/adaptive/window_configuration.dart';
-import 'package:adaptive_golden_test/src/adaptive/window_size.dart';
-import 'package:adaptive_golden_test/src/configuration.dart';
-import 'package:adaptive_golden_test/src/helpers/await_images.dart';
+import 'package:adaptive_golden_test/adaptive_golden_test.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,14 +8,13 @@ import 'package:meta/meta.dart';
 import 'package:recase/recase.dart';
 
 import '../helpers/target_platform_extension.dart';
-import 'widgets/adaptive_wrapper.dart';
 
 /// Type of [callback] that will be executed inside the Flutter test environment.
 ///
 /// Take a [WidgetTester] and a [WindowConfigData] for arguments.
 typedef WidgetTesterAdaptiveCallback = Future<void> Function(
   WidgetTester widgetTester,
-  WindowConfigData windowConfig,
+  DeviceInfo windowConfig,
 );
 
 /// Function wrapper around [testWidgets] that will be executed for every
@@ -30,7 +26,7 @@ void testAdaptiveWidgets(
   bool? skip,
   Timeout? timeout,
   bool semanticsEnabled = true,
-  ValueVariant<WindowConfigData>? variantOverride,
+  ValueVariant<DeviceInfo>? variantOverride,
   dynamic tags,
 }) {
   final defaultVariant = AdaptiveTestConfiguration.instance.deviceVariant;
@@ -38,7 +34,7 @@ void testAdaptiveWidgets(
   testWidgets(
     description,
     (tester) async {
-      debugDefaultTargetPlatformOverride = variant.currentValue!.targetPlatform;
+      debugDefaultTargetPlatformOverride = variant.currentValue!.identifier.platform;
       debugDisableShadows = false;
       tester.configureWindow(variant.currentValue!);
       await callback(tester, variant.currentValue!);
@@ -65,7 +61,7 @@ extension Adaptive on WidgetTester {
   /// Visual regression test for a given [WindowConfigData].
   @isTest
   Future<void> expectGolden<T>(
-    WindowConfigData windowConfig, {
+    DeviceInfo deviceInfo, {
     String? suffix,
     // Sometimes we want to find the widget by its unique key in the case they are multiple of the same type.
     Key? byKey,
@@ -81,7 +77,7 @@ extension Adaptive on WidgetTester {
     pathBuilder ??= (String rootPath) {
       final name = ReCase('$T');
       final localSuffix = suffix != null ? "_${ReCase(suffix).snakeCase}" : '';
-      return '$rootPath/${windowConfig.name}-${name.snakeCase}$localSuffix.png';
+      return '$rootPath/${deviceInfo.name.replaceAll(' ', '_')}-${name.snakeCase}$localSuffix.png';
     };
 
     if (waitForImages) {
