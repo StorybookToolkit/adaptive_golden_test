@@ -9,8 +9,18 @@ extension WidgetTesterWithConfigurableWindow on WidgetTester {
   void configureWindow(DeviceInfo windowConfig) {
     view.physicalSize = windowConfig.frameSize;
     view.devicePixelRatio = windowConfig.pixelRatio;
-    view.padding = FakeViewPadding.zero;
-    view.viewPadding = FakeViewPadding.zero;
+    view.padding = FakeViewPadding(
+      left: windowConfig.safeAreas.left*2,
+      right: windowConfig.safeAreas.right*2,
+      top: windowConfig.safeAreas.top*2,
+      bottom: windowConfig.safeAreas.bottom*2,
+    );
+    view.viewPadding = FakeViewPadding(
+      left: windowConfig.safeAreas.left,
+      right: windowConfig.safeAreas.right,
+      top: windowConfig.safeAreas.top,
+      bottom: windowConfig.safeAreas.bottom,
+    );
 
     addTearDown(view.resetPadding);
     addTearDown(view.resetViewPadding);
@@ -19,7 +29,6 @@ extension WidgetTesterWithConfigurableWindow on WidgetTester {
     addTearDown(view.resetViewInsets);
   }
 }
-
 
 class WindowVariant extends ValueVariant<DeviceInfo> {
   WindowVariant(this.windowConfigs) : super(windowConfigs);
