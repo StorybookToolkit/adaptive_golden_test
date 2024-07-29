@@ -1,15 +1,13 @@
 name: adaptive_golden_test
 description: A Flutter package to generate adaptive golden files during widget tests.
 repository: https://github.com/mjablecnik/adaptive_golden_test
-version: 0.5.2
+version: 1.0.0
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
   flutter: ">=3.0.0"
 
 dependencies:
-  cupertino_icons: ^1.0.5
-  equatable: ^2.0.5
   file: ^7.0.0
   flutter:
     sdk: flutter
@@ -19,7 +17,7 @@ dependencies:
   path: ^1.8.2
   platform: ^3.1.0
   recase: ^4.1.0
-  device_frame_plus: ^1.2.1
+  device_frame_plus: ^1.2.2
 
 dev_dependencies:
   flutter_lints: ^4.0.0
@@ -28,4 +26,3 @@ flutter:
   uses-material-design: true
   assets:
     # Add assets from the images directory to the application.
-    - assets/keyboards/
