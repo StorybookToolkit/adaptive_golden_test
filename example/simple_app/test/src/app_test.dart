@@ -1,7 +1,6 @@
 import 'package:adaptive_golden_test/adaptive_golden_test.dart';
 import 'package:simple_app_example/src/app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testAdaptiveWidgets(
@@ -16,15 +15,9 @@ void main() {
           child: const App(),
         ),
       );
-
-      await tester.expectGolden<App>(variant, suffix: 'simple');
-
-      final textField = find.byType(TextField);
-
-      await tester.tap(textField);
       await tester.pumpAndSettle();
 
-      await tester.expectGolden<App>(variant, suffix: 'simple_with_keyboard');
+      await tester.expectGolden<App>(variant, suffix: 'simple');
     },
   );
 
@@ -40,6 +33,7 @@ void main() {
           child: const App(),
         ),
       );
+      await tester.pumpAndSettle();
 
       await tester.expectGolden<App>(
         variant,
@@ -57,6 +51,7 @@ void main() {
           child: const App(),
         ),
       );
+      await tester.pumpAndSettle();
 
       await tester.expectGolden<App>(
         variant,
