@@ -12,12 +12,15 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  material_symbols_icons: ^4.2771.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  adaptive_golden_test: any
+  #adaptive_golden_test: any
   flutter_lints: ^2.0.0
+  adaptive_golden_test:
+    path: ../../
 
 flutter:
   uses-material-design: true

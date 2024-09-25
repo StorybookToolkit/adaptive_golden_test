@@ -46,25 +46,15 @@ flutter:
       - asset: fonts/Roboto-Black.ttf
 ...
 ```
-- In your flutter_test_config, call `loadFonts()`.
+- In your flutter_test_config, call `loadAppFonts()`.
 ```dart
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   TestWidgetsFlutterBinding.ensureInitialized();
-  await loadFonts();
+  await loadAppFonts();
   await testMain();
 }
 ```
-
-Alternatively you can load fonts from a separate package by specifying its name and path:
-
-```dart
-await loadFontsFromPackage(
-  package: Package(
-    name: 'my_theme_package',
-    relativePath: '../theme',
-  ),
-);
-```
+> ℹ️  `loadAppFonts` loads the fonts from the `pubspec.yaml`, and from every separate package dependencies as well.
 
 ### Setup devices to run test on
 Define a set of device variant corresponding to your definition of done.
@@ -110,20 +100,21 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
 Different OS render golden files with small differences of pixel.
 See the [flutter issue](https://github.com/flutter/flutter/issues/36667).
 
-You can configure `AdaptiveTestConfiguration` singleton to make tests throw if they are run on an unintended platform.
+As an alternative you can use [Alchemist](https://pub.dev/packages/alchemist).
+
+Also, you can configure `AdaptiveTestConfiguration` singleton to skip tests instead of throwing if they are run on an unintended platform.
 ```dart
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   TestWidgetsFlutterBinding.ensureInitialized();
   AdaptiveTestConfiguration.instance
     ..setEnforcedTestPlatform(TargetPlatform.macOS)
+    ..setFailTestOnWrongPlatform(false) <-- Adding this will skip the `testAdaptiveWidgets` tests if you are not running the tests on a macOS platform.
     ..setDeviceVariants(defaultDeviceConfigs);
-  await loadFonts();
+  await loadAppFonts();
   setupFileComparatorWithThreshold();
   await testMain();
 }
 ```
-
-As an alternative you can use [Alchemist](https://pub.dev/packages/alchemist).
 
 ### Write a test
 Use `testAdaptiveWidgets` function. It take a callback with two arguments, `WidgetTester` and `WindowConfigData`.

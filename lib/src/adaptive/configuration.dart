@@ -16,10 +16,8 @@ import 'window_configuration.dart';
 class AdaptiveTestConfiguration {
   AdaptiveTestConfiguration._privateConstructor();
 
-  static final AdaptiveTestConfiguration _instance =
+  static final AdaptiveTestConfiguration instance =
       AdaptiveTestConfiguration._privateConstructor();
-
-  static AdaptiveTestConfiguration get instance => _instance;
 
   TargetPlatform? _enforcedTestPlatform;
 
@@ -35,18 +33,34 @@ class AdaptiveTestConfiguration {
     _enforcedTestPlatform = enforcedTestPlatform;
   }
 
+  bool _failTestOnWrongPlatform = true;
+
+  bool get failTestOnWrongPlatform => _failTestOnWrongPlatform;
+
+  /// When using [enforcedTestPlatform], the default behavior is that the test
+  /// will fail if the runtime platform the test is running on does not match
+  /// the [enforcedTestPlatform].
+  ///
+  /// Setting [failTestOnWrongPlatform] to false will skip the test instead of
+  /// failing it.
+  void setFailTestOnWrongPlatform(bool failTestOnWrongPlatform) {
+    _failTestOnWrongPlatform = failTestOnWrongPlatform;
+  }
+
   WindowVariant? _deviceVariant;
 
   WindowVariant get deviceVariant {
     final scopedDeviceVariant = _deviceVariant;
     if (scopedDeviceVariant == null) {
       throw Exception(
-        '''Device variant is not set.
+        '''
+Device variant is not set.
 please set it first in the [testExecutable] method.
 See: https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html
 ''',
       );
     }
+
     return scopedDeviceVariant;
   }
 

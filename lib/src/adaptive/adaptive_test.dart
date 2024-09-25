@@ -23,25 +23,35 @@ typedef WidgetTesterAdaptiveCallback = Future<void> Function(
 void testAdaptiveWidgets(
   String description,
   WidgetTesterAdaptiveCallback callback, {
+  /// If true, the test will be skipped. Defaults to false.
+  /// If [enforcedTestPlatform] is defined in the [AdaptiveTestConfiguration]
+  /// and [failTestOnWrongPlatform] is false, the test will be skipped if the
+  /// runtime platform does not match the [enforcedTestPlatform].
   bool? skip,
   Timeout? timeout,
   bool semanticsEnabled = true,
   ValueVariant<DeviceInfo>? variantOverride,
   dynamic tags,
 }) {
-  final defaultVariant = AdaptiveTestConfiguration.instance.deviceVariant;
+  final configuration = AdaptiveTestConfiguration.instance;
+  final defaultVariant = configuration.deviceVariant;
   final variant = variantOverride ?? defaultVariant;
+
+  final _skip = skip ?? configuration.shouldSkipTest;
+
   testWidgets(
     description,
     (tester) async {
       debugDefaultTargetPlatformOverride = variant.currentValue!.identifier.platform;
       debugDisableShadows = false;
+      // ignore: avoid-non-null-assertion, will throw in test
       tester.configureWindow(variant.currentValue!);
+      // ignore: avoid-non-null-assertion, will throw in test
       await callback(tester, variant.currentValue!);
       debugDisableShadows = true;
       debugDefaultTargetPlatformOverride = null;
     },
-    skip: skip,
+    skip: _skip,
     timeout: timeout,
     semanticsEnabled: semanticsEnabled,
     variant: variant,
@@ -59,19 +69,38 @@ void testAdaptiveWidgets(
 /// [enforcedTestPlatform] defined in the [AdaptiveTestConfiguration].
 extension Adaptive on WidgetTester {
   /// Visual regression test for a given [WindowConfigData].
+  ///
+  /// The [suffix] is appended to the golden file name. It defaults to
+  /// the empty string if not provided.
+  ///
+  /// By default, the path of the generated golden file is constructed as
+  /// follows:
+  /// `preview/${windowConfig.name}-${name.snakeCase}$localSuffix.png`.
+  /// If a [path] is provided, it will override this default behavior.
+  ///
+  /// The [byKey] argument allows the test to find the widget by its unique key,
+  /// which is useful when multiple widgets of the same type are present.
+  ///
+  /// The [version] argument is an optional integer that can be used to
+  /// differentiate historical golden files.
+  ///
+  /// Set [waitForImages] to `false` if you want to skip waiting for all images
+  /// to load before taking the snapshot. By default, it waits for all images to
+  /// load.
   @isTest
   Future<void> expectGolden<T>(
     DeviceInfo deviceInfo, {
     String? suffix,
-    // Sometimes we want to find the widget by its unique key in the case they are multiple of the same type.
+    String? path,
     Key? byKey,
+    int? version,
     bool waitForImages = true,
     String rootPath = 'preview', // Path where we will generate our golden tests
     String Function(String)? pathBuilder,
   }) async {
     final enforcedTestPlatform = AdaptiveTestConfiguration.instance.enforcedTestPlatform;
     if (enforcedTestPlatform != null && !enforcedTestPlatform.isRuntimePlatform) {
-      throw ('Runtime platform ${Platform.operatingSystem} is not ${enforcedTestPlatform.name}');
+      throw Exception('Runtime platform ${Platform.operatingSystem} is not ${enforcedTestPlatform.name}');
     }
 
     pathBuilder ??= (String rootPath) {
@@ -83,10 +112,11 @@ extension Adaptive on WidgetTester {
     if (waitForImages) {
       await awaitImages();
     }
+
     await expectLater(
       // Find by its type except if the widget's unique key was given.
       byKey != null ? find.byKey(byKey) : find.byType(AdaptiveWrapper),
-      matchesGoldenFile(pathBuilder.call(rootPath)),
+      matchesGoldenFile(path ?? pathBuilder.call(rootPath), version: version),
     );
   }
 }

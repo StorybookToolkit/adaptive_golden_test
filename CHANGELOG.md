@@ -1,3 +1,12 @@
+## 1.1.0
+
+* **BREAKING**: feat: Remove argument packages from loadFonts
+  - feat: loadFonts now support custom icons font like material_symbols_icons
+* feat: awaitImages now support FadeInImage.
+* improvement: use pump instead of pumpAndSettle in awaitImages.
+* feat: add path and version argument to expectGolden method.
+* feat: add support for skipping tests instead of failing them based on the enforced target platform defined in the `AdaptiveTestConfiguration` class.
+
 ## 1.0.0
 
 **Breaking changes**

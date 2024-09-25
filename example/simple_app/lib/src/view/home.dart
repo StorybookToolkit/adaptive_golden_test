@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:material_symbols_icons/symbols.dart';
 
 class HomeLayout extends StatelessWidget {
-  const HomeLayout({Key? key}) : super(key: key);
+  const HomeLayout({super.key, this.useFadeInImage = false});
 
+  final bool useFadeInImage;
   @override
   Widget build(BuildContext context) {
+    const assetName = 'assets/dash.png';
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Adaptative Golden'),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Symbols.image),
+            SizedBox(width: 12),
+            Text('Adaptive Golden'),
+          ],
+        ),
       ),
       body: Center(
         child: Padding(
@@ -15,11 +26,19 @@ class HomeLayout extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                'assets/dash.png',
-                height: 56,
-                width: 56,
-              ),
+              if (useFadeInImage)
+                const FadeInImage(
+                  placeholder: AssetImage(assetName),
+                  image: AssetImage(assetName),
+                  height: 56,
+                  width: 56,
+                )
+              else
+                Image.asset(
+                  assetName,
+                  height: 56,
+                  width: 56,
+                ),
               const SizedBox(width: 20),
               const Expanded(
                 child: TextField(
@@ -28,7 +47,7 @@ class HomeLayout extends StatelessWidget {
                     labelText: 'Say hi !',
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
