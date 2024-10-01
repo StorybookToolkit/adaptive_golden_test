@@ -57,12 +57,11 @@ packages:
     source: hosted
     version: "1.0.5"
   device_frame_plus:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: device_frame_plus
-      sha256: "6b68d43a30a08465f86f33592ac60efcd1499979ef1310fbe3445d94f367297b"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../../../../device_frame_plus"
+      relative: true
+    source: path
     version: "1.2.2+1"
   fake_async:
     dependency: transitive
