@@ -2,6 +2,8 @@
 
 * **BREAKING**: feat: Remove argument packages from loadFonts
   - feat: loadFonts now support custom icons font like material_symbols_icons
+* **BREAKING**: feat: loadFontsFromPackage
+  - feat: loading fonts from current or external packages is now supported by loadFonts
 * feat: awaitImages now support FadeInImage.
 * improvement: use pump instead of pumpAndSettle in awaitImages.
 * feat: add path and version argument to expectGolden method.
