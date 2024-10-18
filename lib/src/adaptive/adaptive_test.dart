@@ -113,7 +113,7 @@ extension Adaptive on WidgetTester {
       await awaitImages();
     }
 
-    await expectLater(
+    expect(
       // Find by its type except if the widget's unique key was given.
       byKey != null ? find.byKey(byKey) : find.byType(AdaptiveWrapper),
       matchesGoldenFile(path ?? pathBuilder.call(rootPath), version: version),
