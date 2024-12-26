@@ -2,7 +2,7 @@ name: adaptive_golden_test
 description: A Flutter package to generate adaptive golden files during widget tests.
 repository: https://github.com/StorybookToolkit/adaptive_golden_test
 issue_tracker: https://github.com/StorybookToolkit/adaptive_golden_test/issues
-version: 1.1.0
+version: 1.1.1
 
 environment:
   sdk: '>=3.0.5 <4.0.0'

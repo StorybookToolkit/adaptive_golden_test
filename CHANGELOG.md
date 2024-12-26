@@ -1,3 +1,6 @@
+## 1.1.1
++ fix: expecting more goldens in one testAdaptiveWidgets function
+
 ## 1.1.0
 
 * **BREAKING**: feat: Remove argument packages from loadFonts
