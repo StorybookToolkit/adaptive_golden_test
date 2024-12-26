@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 void main() {
   testAdaptiveWidgets(
-    'Adaptive test without pathBuilder',
+    'Adaptive test with default path',
     (tester, variant) async {
       await tester.pumpWidget(
         AdaptiveWrapper(
@@ -22,7 +22,7 @@ void main() {
   );
 
   testAdaptiveWidgets(
-    'Adaptive test with pathBuilder',
+    'Adaptive test with custom path',
     (tester, variant) async {
       await tester.pumpWidget(
         AdaptiveWrapper(
@@ -37,9 +37,7 @@ void main() {
 
       await tester.expectGolden<App>(
         variant,
-        pathBuilder: (_) {
-          return "golden/simple/without_keyboard/${variant.name.replaceAll(' ', '_')}.png";
-        },
+        path: "golden/simple/without_keyboard/${variant.name.replaceAll(' ', '_')}.png",
       );
 
       await tester.pumpWidget(
@@ -55,9 +53,7 @@ void main() {
 
       await tester.expectGolden<App>(
         variant,
-        pathBuilder: (_) {
-          return "golden/simple/with_keyboard/${variant.name.replaceAll(' ', '_')}.png";
-        },
+        path: "golden/simple/with_keyboard/${variant.name.replaceAll(' ', '_')}.png",
       );
     },
   );
