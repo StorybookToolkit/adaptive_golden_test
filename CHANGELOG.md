@@ -1,3 +1,7 @@
+## 1.1.2
+* feat: add prefix parameter to customize the golden file name
+* feat: add title parameter to customize the golden file name
+
 ## 1.1.1
 + fix: expecting more goldens in one testAdaptiveWidgets function
 
