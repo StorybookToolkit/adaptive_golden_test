@@ -1,3 +1,6 @@
+## 1.2.0
++ dep: Update dependencies
+
 ## 1.1.1
 + fix: expecting more goldens in one testAdaptiveWidgets function
 
