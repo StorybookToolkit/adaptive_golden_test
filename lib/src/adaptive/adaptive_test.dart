@@ -112,8 +112,7 @@ extension Adaptive on WidgetTester {
     }
 
     pathBuilder ??= (String rootPath) {
-      final name =  ReCase('$T');
-      final goldenTitle = (title?.isNotEmpty??false) ? title: name.snakeCase;
+      final goldenTitle = (title?.isNotEmpty ?? false) ? ReCase(title!).snakeCase : ReCase('$T').snakeCase;
       final localPrefix = prefix != null ? "${ReCase(prefix).snakeCase}_" : '';
       final localSuffix = suffix != null ? "_${ReCase(suffix).snakeCase}" : '';
       return '$rootPath/${deviceInfo.name.replaceAll(' ', '_')}-$localPrefix$goldenTitle$localSuffix.png';
