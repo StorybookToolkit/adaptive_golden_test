@@ -70,9 +70,15 @@ void testAdaptiveWidgets(
 extension Adaptive on WidgetTester {
   /// Visual regression test for a given [WindowConfigData].
   ///
+  /// The [prefix] is appended to the golden file name. It defaults to
+  /// the empty string if not provided.
+  ///
   /// The [suffix] is appended to the golden file name. It defaults to
   /// the empty string if not provided.
   ///
+  /// The [title] parameter is appended to the golden file name to distinguish
+  /// between different test cases. It defaults to the widget name if not provided.
+  /// 
   /// By default, the path of the generated golden file is constructed as
   /// follows:
   /// `preview/${windowConfig.name}-${name.snakeCase}$localSuffix.png`.
@@ -90,7 +96,9 @@ extension Adaptive on WidgetTester {
   @isTest
   Future<void> expectGolden<T>(
     DeviceInfo deviceInfo, {
+    String? prefix,
     String? suffix,
+    String? title,
     String? path,
     Key? byKey,
     int? version,
@@ -104,9 +112,11 @@ extension Adaptive on WidgetTester {
     }
 
     pathBuilder ??= (String rootPath) {
-      final name = ReCase('$T');
+      final name =  ReCase('$T');
+      final goldenTitle = (title?.isNotEmpty??false) ? title: name.snakeCase;
+      final localPrefix = prefix != null ? "${ReCase(prefix).snakeCase}_" : '';
       final localSuffix = suffix != null ? "_${ReCase(suffix).snakeCase}" : '';
-      return '$rootPath/${deviceInfo.name.replaceAll(' ', '_')}-${name.snakeCase}$localSuffix.png';
+      return '$rootPath/${deviceInfo.name.replaceAll(' ', '_')}-$localPrefix$goldenTitle$localSuffix.png';
     };
 
     if (waitForImages) {
