@@ -2,11 +2,7 @@
 
 A Flutter package to generate adaptive golden files during widget tests.
 
-<p>
-  <img  alt="Example" src="https://raw.githubusercontent.com/mjablecnik/adaptive_golden_test/main/doc/example.png"/>
-</p>
-
-![Example](https://raw.githubusercontent.com/bamlab/adaptive_test/main/doc/example.png)
+![Example](https://raw.githubusercontent.com/mjablecnik/adaptive_golden_test/main/doc/example.png)
 
 ## Table of Contents
 1. [Features](#features)
